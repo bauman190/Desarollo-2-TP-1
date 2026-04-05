@@ -28,7 +28,10 @@ public class PlayerMovment : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
             rotationInput = 1;
 
-        movment = new Vector3(Input.GetAxisRaw("Horizontal"), movmentY, Input.GetAxisRaw("Vertical"));
+        //movment = new Vector3(Input.GetAxisRaw("Horizontal"), movmentY, Input.GetAxisRaw("Vertical"));
+        movment = transform.forward * Input.GetAxisRaw("Vertical")
+        + transform.right * Input.GetAxisRaw("Horizontal")
+        + Vector3.up * movmentY;
         rotation = new Vector3(0, rotationInput, 0);
     }
 
