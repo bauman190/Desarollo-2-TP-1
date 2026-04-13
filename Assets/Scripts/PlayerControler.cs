@@ -4,17 +4,18 @@ using UnityEngine.InputSystem.Utilities;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerControler : MonoBehaviour
 {
-
-    [SerializeField] private float speed = 1f;
     private Rigidbody rb;
     private Vector3 movment;
     private Vector3 rotation;
-    [SerializeField]private float rotationSpeed = 10f;
-    [SerializeField] private Bullet prefabBullet;
-    [SerializeField] private Transform tip;
-    [SerializeField] private float bulletSpeed = 10.0f;
-    [SerializeField] private Transform bulletContent;
+    [SerializeField]private float rotationSpeed = 0.5f;
 
+    [SerializeField] private float shipInpuls = 1f;
+
+    //Bullet 
+    [SerializeField] private Bullet prefabBullet;
+    [SerializeField] private float bulletSpeed = 10.0f;
+    [SerializeField] private Transform tip;
+    [SerializeField] private Transform bulletContent;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,13 +35,12 @@ public class PlayerControler : MonoBehaviour
         
     }
     private void Movement()
-    {
-        float movmentY = 0;
+    {        
 
         if (Input.GetKey(KeyCode.Space))
-            movmentY = 1;
-        if (Input.GetKey(KeyCode.LeftControl))
-            movmentY = -1;
+        {
+            movment = transform.forward * shipInpuls;
+        }
 
         float rotationInput = 0;
         if (Input.GetKey(KeyCode.Q))
@@ -48,16 +48,13 @@ public class PlayerControler : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
             rotationInput = 1;
 
-        //movment = new Vector3(Input.GetAxisRaw("Horizontal"), movmentY, Input.GetAxisRaw("Vertical"));
-        movment = transform.forward * Input.GetAxisRaw("Vertical")
-        + transform.right * Input.GetAxisRaw("Horizontal")
-        + Vector3.up * movmentY;
-        rotation = new Vector3(0, rotationInput, 0);
+        rotation = new Vector3(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"), rotationInput) * rotationSpeed;
     }
+  
     private void FixedUpdate()
     {
-        rb.AddForce(movment * speed);
-        rb.AddTorque(rotation * rotationSpeed, ForceMode.Force);
+        rb.AddForce(movment);
+        rb.AddTorque(rotation, ForceMode.Force);
     }
 }
 
