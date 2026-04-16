@@ -67,7 +67,7 @@ public class PlayerControler : MonoBehaviour
 
     private void ToggleKinematic()
     {
-        if (Input.GetKey(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace))
            rb.isKinematic = !rb.isKinematic;
     }
 }
