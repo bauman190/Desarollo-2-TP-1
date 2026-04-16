@@ -9,14 +9,14 @@ public class PlanetMovement : MonoBehaviour
     private float speed = 0f;
 
 
-    void Start()
+    private void Start()
     {
         radius = Vector3.Distance(transform.position, target.position);
         speed = (baseSpeed / radius) * Time.deltaTime;
     }
 
    
-    void Update()
+    private void Update()
     {
         transform.RotateAround(target.position, Vector3.up, speed);
     }
