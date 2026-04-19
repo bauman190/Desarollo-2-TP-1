@@ -29,6 +29,5 @@ public class PlanetBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         PlayDestroySound destoySound = Instantiate(prefabDestroySound, transform.position, Quaternion.identity);
-        //AudioSource.PlayClipAtPoint(AS.clip, transform.position);
     }
 }
